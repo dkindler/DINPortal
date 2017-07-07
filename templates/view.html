@@ -1,0 +1,22 @@
+<!doctype html>
+<title>{{din}}</title>
+
+<div id='owner'></div>
+
+<script src="../static/js/contracts.js" type="text/javascript"></script>
+<script>
+  var userEthereumClient
+
+  window.addEventListener("load", function() {
+    userEthereumClient = window.web3
+    var contract = din_contract(userEthereumClient)
+
+    contract.owner((parseInt(document.title) || 0), function(error, result) {
+      if (error) {
+        console.log(error)
+      } else {
+        document.getElementById('owner').innerHTML = result;
+      }
+    })
+  })
+</script>

@@ -9,6 +9,7 @@ Current DIN Contract Address: `0xcee847df50cf2a798e33e5a7282684255869eccf`
  
  ### Routes
 
-| Route     | Scheme                                  |
-|-----------|-----------------------------------------|
-| Get Owner | `http://127.0.0.1:5000/din/<DIN NUMBER>`|
+| Route      | Scheme                                  |
+|------------|-----------------------------------------|
+| Get Owner  | `http://127.0.0.1:5000/din/<DIN NUMBER>`|
+| Create DIN | `http://127.0.0.1:5000/new`             |

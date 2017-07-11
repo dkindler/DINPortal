@@ -1,0 +1,54 @@
+<!doctype html>
+<title>New DIN</title>
+
+<div class="container">
+  <button id="registerButton" onclick="registerDIN()">Reserve DIN Number</button>
+  <p id="alert"><p>
+</div>
+
+
+<script src="../static/js/contracts.js" type="text/javascript"></script>
+<script>
+  var userEthereumClient, contract, registerButton, alert
+
+  window.addEventListener("load", function() {
+    alert = document.getElementById("alert")
+    registerButton = document.getElementById("registerButton")
+    userEthereumClient = window.web3
+    contract = din_contract(userEthereumClient)
+  })
+
+  function registerDIN() {
+    registerButton.disabled = true
+    alert.innerHTML = "Please wait, verifying transaction."
+
+    var event = contract.NewRegistration({owner: web3.eth.accounts[0]})
+    event.watch(function(error, result) {
+      registerButton.disabled = false
+
+      if (!error) {
+        console.log(result)
+        window.location = '/din/' + result["args"]["DIN"]["c"][0]
+      } else {
+        // Throw error
+        alert.innerHTML = error
+        console.log(error)
+      }
+
+      event = null
+    })
+
+    contract.registerNewDIN(function(error, result) {
+      if (!error) {
+        // Tell user that it is pending
+        console.log(result)
+      } else {
+        // Throw Error
+        registerButton.disabled = false
+        alert.innerHTML = error
+        console.log(error)
+      }
+    })
+  }
+
+</script>
